@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Stored Posts
+{% endblock  %}
+
+{% block content %}
+  
+<div class="container">
+  <h1 class="section-heading">Your Favourite Posts</h1>
+  <p class="heading-description">All the posts which you have saved for reading later.</p>
+  
+  
+  {% if not has_posts %}
+  <div class="alert">
+    <strong>No Posts!</strong> You did not save any posts for later.
+  </div>
+  {% endif %}
+</div>
+
+
+  {% for post in posts %}
+<div class="wrapper">
+    {% include 'blog/includes/card.html' %}
+  {% endfor %}
+  </div>
+  
+{% endblock  %}

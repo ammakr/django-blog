@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Single POst
+{% endblock  %}
+
+{% block css_files %}
+<link rel='stylesheet' href={% static 'blog/single.css' %}>
+
+{% endblock  %}
+
+{% block content %}
+
+{% if comment_form.errors %}
+<div id="alert">
+  <h2>Saving the comment failed</h2>
+  <p>Please Check the comment below the post and fix your errors.</p>
+  <a href="#comment-form">Fix!</a>
+</div>
+{% endif %}
+
+<div class="container">
+
+  <div class="article">
+      <div class="category"><a>{{post.post_type}}</a></div>
+      <h1 class="headline">{{post.title}}</h1>
+      <form action="{% url 'later' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{ post.id }}" name="post_id" />
+        <button class="menu__link menu__link--primary later-button">
+          {% if saved_for_later %}
+            Remove from "Read Later" List
+          {% else %}
+            Read Later
+          {% endif %}
+        </button>
+      </form>
+      <div class="body">
+
+
+      <img src={{ post.image.url }} class='main-img' style="width: 100%" alt="">
+      <p class="img-sub">{{post.excerpt}}</p>
+      <p class="author-line">By <a class='author' href="mailto:{{post.author.email_address}}">{{post.author}}</a></p>
+      <p class="pub-date">{{post.date|date:"d M y"}} at 1:00 p.m. UTC</p>
+      <p>
+        {{post.content|linebreaks}}
+      </p></div><div>
+          <div class="side-empty"></div>
+      </div>
+
+      <h2 class="comment-heading">Comment Here</h2>
+      <div id="comment-form">
+        <form  action="{% url 'single' post.slug %}" method="post">
+          {% csrf_token %}
+          {% for field in comment_form %}
+          <div class="form-control {% if field.errors %}invalid{% endif %}">
+            {{field.label_tag}}
+            {{field}}
+            {{field.errors}}
+          </div>
+          {% endfor %}
+          <button class="hero__cta hero__cta--primary explore-button" href="{% url 'posts' %}">Save Comment</button>
+        </form>
+        <div id="comments">
+          <h2 class="comment-heading">Comments:</h2>
+            <ul>
+              {% for comment in comments %}
+              <li>
+                <h3>{{ comment.user_name }}</h3>
+                <p>{{ comment.text}}</p>
+              </li>
+              {% endfor %}
+            </ul>
+
+        </div>
+      </div>
+      </div>
+</div>
+
+{% endblock  %}

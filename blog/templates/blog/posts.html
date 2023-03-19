@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+All Posts
+{% endblock  %}
+
+{% block css_files %}
+<link rel='stylesheet' href={% static 'blog/posts.css' %}>
+{% endblock  %}
+
+
+{% block content %}
+{% include 'blog/includes/background.html' %}
+
+
+<div class="container">
+  <h1 class="section-heading">All Our Posts</h1>
+  <p class="heading-description">Our latest web design tips, tricks, insights, and resources, hot off the presses.</p>
+</div>
+
+<div class="wrapper">
+  {% for post in posts %}
+    {% include 'blog/includes/card.html' %}
+  {% endfor %}
+  </div>
+  
+
+{% endblock  %}

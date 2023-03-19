@@ -1,0 +1,33 @@
+{% load static %}
+
+  <!-- Card start -->
+  <div>
+    <a href={% url 'single' post.slug %}>
+<div class="card">
+
+    <div class="card-banner">
+      <p class="category-tag popular">{{post.post_type}}</p>
+      <img class="banner-img" src={{ post.image.url }} alt='{{post.title}}'>
+    </div>
+
+    <div class="card-body">
+      <div>
+      <h2 class="blog-title">{{ post.title}}</h2>
+   <p class="blog-description">{{ post.excerpt }} </p>
+      </div>
+      <div class="card-profile">
+        <img class="profile-img" src={% static 'blog/images/main-image.png' %} alt=''>
+        <div class="card-item">
+          <h3 class="profile-name">{{post.author }}</h3>
+        </div>
+        <div class="card-item">|</div>
+        <p class="profile-followers card-item">April 25, 2022</p>
+      </div>
+
+    </div>
+  </div>
+  </a>
+
+  </div>
+<!-- Card end -->
+
